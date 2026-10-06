@@ -1,227 +1,462 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Цифровой навигатор: безопасный и уважительный онлайн</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Торжественное приглашение в КС2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rubik+Mono+One&family=PT+Serif:ital,wght@0,400;0,700;1,400&family=Marck+Script&display=swap" rel="stylesheet">
+<style>
+:root{
+  --pink:#fb66e5;
+  --teal:#00c2b9;
+  --yellow:#ffc72c;
+  --orange:#ff5800;
+  --magenta:#ec1171;
+  --blue:#6595f9;
+  --ink:#2d2926;
+  --cream:#fff3e5;
+  --stroke:3px;
+  --ease-bounce:cubic-bezier(.215,.61,.355,1);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:'PT Serif', Georgia, serif;
+  background:var(--cream);
+  color:var(--ink);
+  overflow-x:hidden;
+}
+::selection{background:var(--yellow);color:var(--ink);}
+
+/* ---------- MARQUEE ---------- */
+.marquee{
+  background:var(--ink);
+  color:var(--yellow);
+  font-family:'Rubik Mono One',monospace;
+  font-size:clamp(14px,2vw,20px);
+  text-transform:uppercase;
+  padding:14px 0;
+  overflow:hidden;
+  white-space:nowrap;
+  border-bottom:var(--stroke) solid var(--ink);
+  position:relative;
+  z-index:20;
+}
+.marquee.alt{background:var(--magenta);color:var(--cream);border-top:var(--stroke) solid var(--ink);}
+.marquee-track{display:inline-block;animation:scroll 28s linear infinite;}
+.marquee-track span{margin:0 1.2em;}
+@keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ---------- HERO ---------- */
+.hero{
+  background:var(--teal);
+  min-height:92vh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:80px 24px 120px;
+  position:relative;
+  overflow:hidden;
+  border-bottom:var(--stroke) solid var(--ink);
+}
+.hero::before{
+  content:"";
+  position:absolute;
+  inset:-60%;
+  background:repeating-conic-gradient(from 0deg, rgba(255,255,255,.14) 0deg 9deg, transparent 9deg 18deg);
+  animation:sunspin 90s linear infinite;
+  pointer-events:none;
+}
+@keyframes sunspin{to{transform:rotate(360deg)}}
+.hero-inner{position:relative;z-index:2;max-width:1100px;}
+.hero-kicker{
+  display:inline-block;
+  font-family:'Rubik Mono One',monospace;
+  font-size:clamp(12px,1.6vw,18px);
+  text-transform:uppercase;
+  background:var(--yellow);
+  border:var(--stroke) solid var(--ink);
+  padding:10px 22px;
+  transform:rotate(-2deg);
+  box-shadow:6px 6px 0 var(--ink);
+  margin-bottom:36px;
+  animation:wiggle 3.4s var(--ease-bounce) infinite;
+}
+@keyframes wiggle{
+  0%,100%{transform:rotate(-2.5deg)}
+  50%{transform:rotate(1.5deg) translateY(-4px)}
+}
+.hero h1{
+  font-family:'Rubik Mono One',monospace;
+  font-size:clamp(40px,8.5vw,120px);
+  line-height:1.02;
+  text-transform:uppercase;
+  color:var(--cream);
+  -webkit-text-stroke:2.5px var(--ink);
+  text-shadow:7px 7px 0 var(--ink);
+  letter-spacing:.01em;
+  margin-bottom:28px;
+}
+.hero h1 .ch{display:inline-block;transition:transform .25s var(--ease-bounce);cursor:default;}
+.hero h1 .ch:hover{transform:translateY(-14px) rotate(-8deg) scale(1.15);color:var(--yellow);}
+.hero-sub{
+  font-size:clamp(17px,2.2vw,24px);
+  font-style:italic;
+  max-width:760px;
+  margin:0 auto 48px;
+  background:var(--cream);
+  border:var(--stroke) solid var(--ink);
+  box-shadow:8px 8px 0 var(--ink);
+  padding:22px 30px;
+  transform:rotate(1deg);
+}
+.scroll-hint{
+  font-family:'Rubik Mono One',monospace;
+  font-size:14px;
+  text-transform:uppercase;
+  color:var(--ink);
+  animation:bob 1.6s ease-in-out infinite;
+  display:inline-block;
+}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(12px)}}
+
+/* floating shapes */
+.shape{position:absolute;z-index:1;border:var(--stroke) solid var(--ink);animation:floaty 7s ease-in-out infinite;}
+.shape.circle{width:90px;height:90px;border-radius:50%;background:var(--pink);top:12%;left:8%;}
+.shape.square{width:70px;height:70px;background:var(--orange);top:20%;right:10%;animation-delay:-2s;transform:rotate(12deg);}
+.shape.tri{width:0;height:0;border-left:45px solid transparent;border-right:45px solid transparent;border-bottom:78px solid var(--blue);top:68%;left:12%;animation-delay:-4s;background:none;border-top:none;}
+.shape.pill{width:130px;height:52px;border-radius:999px;background:var(--yellow);top:74%;right:12%;animation-delay:-1.2s;}
+.shape.diamond{width:60px;height:60px;background:var(--magenta);top:42%;left:88%;animation-delay:-3s;transform:rotate(45deg);}
+@keyframes floaty{
+  0%,100%{transform:translateY(0) rotate(0deg)}
+  50%{transform:translateY(-26px) rotate(8deg)}
+}
+
+/* ---------- SECTIONS ---------- */
+.band{padding:90px 24px;border-bottom:var(--stroke) solid var(--ink);position:relative;overflow:hidden;}
+.band-cream{background:var(--cream);}
+.band-pink{background:var(--pink);}
+.band-blue{background:var(--blue);}
+.band-yellow{background:var(--yellow);}
+.band-ink{background:var(--ink);color:var(--cream);}
+.band-orange{background:var(--orange);}
+.wrap{max-width:860px;margin:0 auto;position:relative;z-index:2;}
+.sec-label{
+  font-family:'Rubik Mono One',monospace;
+  font-size:clamp(13px,1.8vw,18px);
+  text-transform:uppercase;
+  display:inline-block;
+  background:var(--ink);
+  color:var(--cream);
+  padding:8px 18px;
+  margin-bottom:34px;
+  transform:rotate(-1.5deg);
+}
+.sec-label.light{background:var(--cream);color:var(--ink);border:var(--stroke) solid var(--ink);box-shadow:5px 5px 0 rgba(45,41,38,.9);}
+.sec-title{
+  font-family:'Rubik Mono One',monospace;
+  font-size:clamp(26px,4.5vw,52px);
+  text-transform:uppercase;
+  line-height:1.1;
+  margin-bottom:40px;
+}
+.band-pink .sec-title{color:var(--cream);-webkit-text-stroke:2px var(--ink);text-shadow:5px 5px 0 var(--ink);}
+.band-blue .sec-title{color:var(--yellow);-webkit-text-stroke:2px var(--ink);text-shadow:5px 5px 0 var(--ink);}
+
+/* epistle */
+.epistle{
+  background:var(--cream);
+  border:var(--stroke) solid var(--ink);
+  box-shadow:12px 12px 0 var(--ink);
+  padding:clamp(30px,5vw,64px);
+  position:relative;
+}
+.epistle::before{
+  content:"";
+  position:absolute;
+  top:14px;left:14px;right:-14px;bottom:-14px;
+  border:var(--stroke) dashed var(--ink);
+  z-index:-1;
+  background:var(--yellow);
+}
+.epistle p{
+  font-size:clamp(17px,2vw,21px);
+  line-height:1.75;
+  margin-bottom:1.4em;
+  text-align:justify;
+}
+.epistle p:first-of-type::first-letter{
+  font-family:'Rubik Mono One',monospace;
+  font-size:3.2em;
+  line-height:.8;
+  float:left;
+  padding:8px 12px 4px 0;
+  color:var(--magenta);
+}
+.epistle .flourish{
+  font-family:'Marck Script',cursive;
+  font-size:clamp(28px,4vw,42px);
+  color:var(--magenta);
+  text-align:center;
+  display:block;
+  margin:1.2em 0;
+  transform:rotate(-1.5deg);
+}
+.epistle em{background:linear-gradient(transparent 62%, var(--yellow) 62%);font-style:italic;}
+.epistle strong{background:var(--ink);color:var(--cream);padding:1px 7px;}
+.drop-word{color:var(--magenta);font-weight:700;}
+
+/* conditions list */
+.rules{list-style:none;counter-reset:r;}
+.rules li{
+  counter-increment:r;
+  background:var(--cream);
+  border:var(--stroke) solid var(--ink);
+  box-shadow:8px 8px 0 var(--ink);
+  padding:24px 26px 24px 90px;
+  margin-bottom:26px;
+  font-size:clamp(16px,1.9vw,20px);
+  line-height:1.65;
+  position:relative;
+  transition:transform .25s var(--ease-bounce);
+}
+.rules li:hover{transform:translate(-4px,-4px) rotate(-.6deg);box-shadow:12px 12px 0 var(--ink);}
+.rules li::before{
+  content:counter(r);
+  position:absolute;
+  left:22px;top:50%;transform:translateY(-50%);
+  font-family:'Rubik Mono One',monospace;
+  font-size:26px;
+  width:48px;height:48px;
+  display:flex;align-items:center;justify-content:center;
+  background:var(--orange);
+  border:var(--stroke) solid var(--ink);
+  border-radius:50%;
+}
+.rules li:nth-child(2)::before{background:var(--pink);}
+.rules li:nth-child(3)::before{background:var(--blue);}
+.rules li:nth-child(4)::before{background:var(--teal);color:var(--cream);}
+.rules li:nth-child(5)::before{background:var(--magenta);color:var(--cream);}
+
+/* CTA */
+.cta-zone{text-align:center;}
+.blob-btn{
+  display:inline-block;
+  font-family:'Rubik Mono One',monospace;
+  font-size:clamp(18px,3vw,30px);
+  text-transform:uppercase;
+  text-decoration:none;
+  color:var(--ink);
+  background:var(--yellow);
+  border:var(--stroke) solid var(--ink);
+  box-shadow:8px 8px 0 var(--ink);
+  padding:26px 54px;
+  border-radius:58% 42% 55% 45% / 48% 55% 45% 52%;
+  transition:transform .25s var(--ease-bounce), border-radius .4s var(--ease-bounce);
+  animation:btnpulse 2.6s var(--ease-bounce) infinite;
+  cursor:pointer;
+}
+.blob-btn:hover{
+  transform:translate(-4px,-6px) rotate(-2deg) scale(1.06);
+  border-radius:45% 55% 40% 60% / 55% 45% 58% 42%;
+  background:var(--pink);
+  box-shadow:12px 12px 0 var(--ink);
+}
+@keyframes btnpulse{
+  0%,100%{transform:scale(1)}
+  50%{transform:scale(1.04) rotate(.8deg)}
+}
+.cta-note{margin-top:34px;font-style:italic;font-size:clamp(15px,1.8vw,19px);}
+
+/* signature */
+.signature{
+  font-family:'Marck Script',cursive;
+  font-size:clamp(30px,5vw,52px);
+  color:var(--yellow);
+  transform:rotate(-2deg);
+  display:inline-block;
+  margin-top:14px;
+}
+.band-ink p{line-height:1.75;font-size:clamp(16px,1.9vw,20px);}
+.band-ink .fineprint{opacity:.75;font-size:14px;margin-top:40px;line-height:1.7;}
+
+/* reveal on scroll */
+.reveal{opacity:0;transform:translateY(44px) rotate(.5deg);transition:opacity .7s var(--ease-bounce),transform .7s var(--ease-bounce);}
+.reveal.visible{opacity:1;transform:translateY(0) rotate(0);}
+
+/* confetti pieces */
+.confetti{position:absolute;width:14px;height:14px;z-index:1;opacity:.9;animation:drift 9s ease-in-out infinite;}
+@keyframes drift{
+  0%,100%{transform:translate(0,0) rotate(0deg)}
+  33%{transform:translate(14px,-30px) rotate(120deg)}
+  66%{transform:translate(-12px,-14px) rotate(240deg)}
+}
+
+footer{
+  background:var(--magenta);
+  padding:44px 24px;
+  text-align:center;
+  color:var(--cream);
+  font-family:'Rubik Mono One',monospace;
+  font-size:clamp(11px,1.5vw,14px);
+  text-transform:uppercase;
+  letter-spacing:.08em;
+}
+@media (max-width:640px){
+  .shape.diamond{left:80%;}
+  .rules li{padding-left:80px;}
+}
+</style>
 </head>
 <body>
-  <header>
-    <h1>Цифровой навигатор</h1>
-    <p>Безопасный и уважительный онлайн для школьников и студентов</p>
-  </header>
 
-  <nav>
-    <ul>
-      <li><a href="#intro">Введение</a></li>
-      <li><a href="#module1">Защита в сети</a></li>
-      <li><a href="#module2">Цифровой этикет</a></li>
-      <li><a href="#quiz">Мини-квест</a></li>
-      <li><a href="#memory">Памятка</a></li>
-    </ul>
-  </nav>
+<div class="marquee">
+  <div class="marquee-track" id="mq1">
+    <span>Официальное приглашение</span><span>●</span><span>Контр-Страйк 2</span><span>●</span><span>Торжественное</span><span>●</span><span>Не опаздывайте</span><span>●</span><span>Высочайший уровень вежливости</span><span>●</span><span>Официальное приглашение</span><span>●</span><span>Контр-Страйк 2</span><span>●</span><span>Торжественное</span><span>●</span><span>Не опаздывайте</span><span>●</span><span>Высочайший уровень вежливости</span><span>●</span>
+  </div>
+</div>
 
-  <main>
-    <section id="intro">
-      <h2>Введение</h2>
-      <div class="card">
-        <p>Этот гайд поможет тебе обезопасить себя и близких в интернете и научиться уважительному общению в сети. Здесь есть чёткие алгоритмы действий, чек-листы и мини-квест для проверки знаний.</p>
-        <p><strong>Время на знакомство:</strong> 20–30 минут. Можно проходить по модулям.</p>
-      </div>
-    </section>
+<header class="hero">
+  <div class="shape circle"></div>
+  <div class="shape square"></div>
+  <div class="shape tri"></div>
+  <div class="shape pill"></div>
+  <div class="shape diamond"></div>
+  <div class="hero-inner">
+    <span class="hero-kicker">Приглашение № 001 · К категорическому прочтению</span>
+    <h1 id="heroTitle">Торжественное приглашение сыграть в КС2</h1>
+    <p class="hero-sub">Настоящим документом, составленным с соблюдением всех мыслимых и немыслимых норм этикета, дипломатического протокола и дружеского расположения, Вам официально предлагается ознакомиться с нижеследующим текстом, длина которого, вне всякого сомнения, прямо пропорциональна глубине моего к Вам уважения.</p>
+    <span class="scroll-hint">▼ Соизвольте прокрутить вниз ▼</span>
+  </div>
+</header>
 
-    <section id="module1">
-      <h2>Модуль 1. Защита себя и близких в сети</h2>
+<div class="marquee alt">
+  <div class="marquee-track">
+    <span>Прочтите до конца</span><span>★</span><span>Там важно</span><span>★</span><span>Очень важно</span><span>★</span><span>Чрезвычайно важно</span><span>★</span><span>Прочтите до конца</span><span>★</span><span>Там важно</span><span>★</span><span>Очень важно</span><span>★</span><span>Чрезвычайно важно</span><span>★</span>
+  </div>
+</div>
 
-      <h3>1.1 Личные данные и аккаунты: базовая гигиена</h3>
-      <div class="card">
-        <ul>
-          <li><strong>Пароли:</strong> минимум 12 символов; буквы (заглавные/строчные), цифры, знаки; разные пароли для разных сервисов.</li>
-          <li><strong>Менеджер паролей:</strong> используй приложение для генерации и хранения паролей.</li>
-          <li><strong>Двухфакторная аутентификация (2FA):</strong> включай везде, где можно.</li>
-          <li><strong>Приватность:</strong> проверяй настройки профилей; не публикуй адрес, телефон, расписание, фото документов.</li>
-          <li><strong>HTTPS и адрес сайта:</strong> перед вводом данных проверяй замок и домен.</li>
-        </ul>
-      </div>
+<section class="band band-cream">
+  <div class="wrap reveal">
+    <span class="sec-label">Часть первая · Преамбула</span>
+    <h2 class="sec-title">Предварительные замечания, предшествующие сути</h2>
+    <div class="epistle">
+      <p>Дорогой друг, уважаемый многими людьми, — и, надо полагать, уважаемый вполне заслуженно, — прежде нежели я позволю себе перейти к изложению сути того предложения, ради которого настоящее послание, собственно говоря, и было начертано, я считаю своим непременным долгом, — долгом, вытекающим, с одной стороны, из правил хорошего тона, а с другой стороны, из искреннего и ни в коей мере не показного расположения к Вашей персоне, — обрамить упомянутое предложение таким количеством вводных, уточняющих и, если угодно, предупредительных оборотов, чтобы ни одна, даже самая незначительная, грань моего намерения не осталась, так сказать, в тени недосказанности.</p>
+      <p>В самом деле, — и в этом, как Вы, безусловно, согласитесь, заключается суть любого по-настоящему вежливого обращения, — нельзя просто взять и пригласить человека; нет, человека следует, образно выражаясь, <em>подвести</em> к приглашению: плавно, неторопливо, с расстановкой, со всевозможными оговорками, с должным почтением к его времени, к его занятости, к его, осмелюсь заметить, весьма насыщенному и, надо думать, чрезвычайно содержательному распорядку дня.</p>
+      <p>Итак, не торопясь и, вместе с тем, не откладывая дело в долгий ящик, — ибо, как известно, а посему и говорить излишне, откладывание никогда ещё не прибавляло приглашениям ни свежести, ни убедительности, — приступим.</p>
+      <span class="flourish">Приступим же, голубчик, приступим...</span>
+    </div>
+  </div>
+</section>
 
-      <h4>Чек-лист Защита аккаунта за 10 минут </h4>
-      <div class="card checklist">
-        <label><input type="checkbox"> Сменил(а) слабые пароли на надёжные</label>
-        <label><input type="checkbox"> Включил(а) 2FA в почте, соцсетях, мессенджерах</label>
-        <label><input type="checkbox"> Проверил(а) приватность профилей</label>
-        <label><input type="checkbox"> Убрал(а) из открытого доступа адрес/телефон/фото документов</label>
-        <label><input type="checkbox"> Установил(а) обновления ОС и приложений</label>
-      </div>
+<section class="band band-pink">
+  <div class="confetti" style="background:var(--yellow);top:10%;left:6%;"></div>
+  <div class="confetti" style="background:var(--teal);top:70%;left:90%;animation-delay:-3s;"></div>
+  <div class="confetti" style="background:var(--cream);top:30%;left:80%;animation-delay:-5s;"></div>
+  <div class="wrap reveal">
+    <span class="sec-label light">Часть вторая · Обстоятельства</span>
+    <h2 class="sec-title">О том, почему приглашение адресовано именно Вам</h2>
+    <div class="epistle">
+      <p>Позвольте, в качестве своего рода отступления, — отступления, которое, впрочем, не является ни случайным, ни праздным, но носит характер сугубо пояснительный, — заметить следующее: из всего множества лиц, окружающих меня в этой юдоли суеты, из всего, так сказать, списка контактов, из всего перечня знакомых, полузнакомых и прочих достойных особ, выбор мой пал, — и пал, замечу, не наугад, не по жребию и не по алфавиту, но по глубокомысленном размышлении, — именно на Вас.</p>
+      <p>Чем, спросите Вы, — и вопрос этот будет, несомненно, закономерен, — чем же руководствовался я, делая столь ответственный выбор? Руководствовался я, отвечу Вам не задумываясь, совокупностью обстоятельств, среди которых первое место, по справедливости, принадлежит Вашей репутации, — репутации, как принято выражаться в подобных случаях, безупречной; второе место занимает Ваше чувство юмора, о коем ходят, если верить многочисленным свидетельствам, самые лестные толки; и, наконец, третье, но отнюдь не последнее по значимости, — Ваша предполагаемая готовность, о которой я осмеливаюсь догадываться, провести вечер за занятием, достойным истинного ценителя.</p>
+      <p>При этом, принимая во внимание всё вышеизложенное, а также не упуская из виду ни Вашего возможного утомления после трудового дня, ни иных обстоятельств личного, семейного, служебного и всякого прочего свойства, я отдаю себе полный отчёт в том, что предложение моё, сколь бы ни было оно тщательно сформулировано, может застать Вас врасплох; посему я заранее, заблаговременно и с должным смирением приношу извинения за всякое беспокойство, каковое чтение сего послания, быть может, в силу его обстоятельности, у Вас вызывает.</p>
+      <p>Впрочем, — и тут я позволю себе небольшую, вполне, впрочем, простительную улыбку, — беспокойство это, держу пари, с лихвой компенсируется тем удовольствием, которое Вы, буде соизволите принять предложение, непременно получите.</p>
+    </div>
+  </div>
+</section>
 
-      <h3>1.2 Мошенники, фишинг, претекстинг</h3>
-      <div class="card">
-        <p><strong>Признаки фишинга:</strong> срочность, требование ввести пароль/данные карты, странный адрес сайта, ошибки в тексте, слишком щедрое предложение.</p>
-        <p><strong>Претекстинг:</strong> злоумышленник придумывает правдоподобную историю, чтобы выманить информацию/деньги/действие.</p>
-      </div>
+<section class="band band-blue">
+  <div class="wrap reveal">
+    <span class="sec-label light">Часть третья · Суть предложения</span>
+    <h2 class="sec-title">Само приглашение (наконец-то)</h2>
+    <div class="epistle">
+      <p>Итак, дорогой друг, уважаемый многими людьми, перехожу, — после всех приличествующих случаю вступлений, оговорок, уточнений, комплиментов и прочих неотъемлемых атрибутов учтивого обращения, — перехожу, говорю я, к самому главному, к ядру, так сказать, настоящего послания, к той самой фразе, ради которой всё вышенаписанное и было написано.</p>
+      <p>Не соизволишь ли ты, — при всей твоей занятости, при всех твоих делах, заботах, хлопотах и прочих, без сомнения, неотложных обязанностях, — не соизволишь ли ты, спрашиваю я с почтением, граничащим, пожалуй, с трепетом, сыграть со мной вместе, — то есть плечом к плечу, в одной команде, в одном, как ныне принято говорить, лобби, — в интереснейшую, захватывающую и, по общему признанию лиц, сведущих в подобных вопросах, ни в какое сравнение не идущую с прочими игру под названием <strong>Контр-Страйк 2</strong>?</p>
+      <p>Да, друг мой, именно в неё: в ту самую игру, где две команды, — одна, так сказать, наступает, другая обороняется, — встречаются на картах, чьи названия, подобно именам древних городов, передаются из уст в уста; в ту самую игру, где меткость вознаграждается, расторопность поощряется, а промедление, как и в жизни, впрочем, карается; в ту самую игру, где вечер пролетает, — и в этом, поверь, заключается главное её свойство, — с быстротою, недоступной никаким иным вечерам.</p>
+      <span class="flourish">Согласись: звучит это более чем заманчиво...</span>
+      <p>И если, чего, впрочем, допускать не хочется, ты по какой-либо причине, — причине, безусловно, уважительной, ибо иных причин у столь уважаемого человека, полагаю, не водится, — не сможешь принять сие приглашение сегодня, то не премину заметить, что оно, будучи составленным от чистого сердца, не имеет срока давности и пребудет в силе завтра, послезавтра и, прибавлю для полноты картины, во все последующие дни, вплоть до скончания века или, что наступит вероятнее, до выхода третьей части.</p>
+    </div>
+  </div>
+</section>
 
-      <h4>Алгоритм Стоп‑фишинг (5 шагов)</h4>
-      <div class="card">
-        <ol>
-          <li>Не нажимай на ссылку из подозрительного сообщения.</li>
-          <li>Открой сайт вручную (введи адрес сам).</li>
-          <li>Проверь отправителя и домен.</li>
-          <li>Если просят деньги/пароль — перепроверь через другой канал связи (позвони/напиши знакомому).</li>
-          <li>Сделай скриншоты и сообщи в поддержку/родителям.</li>
-        </ol>
-      </div>
+<section class="band band-yellow">
+  <div class="wrap reveal">
+    <span class="sec-label">Часть четвёртая · Условия</span>
+    <h2 class="sec-title">Предметные условия совместной игры</h2>
+    <ol class="rules">
+      <li><b>Время и место.</b> Время собрания определяется, с Вашего любезного согласия, по взаимному удобству сторон; место же, в силу самой природы мероприятия, является виртуальным, что, как Вы, несомненно, оцените, избавляет обе стороны от издержек, связанных с дорогой, гардеробом и прочими атрибутами офлайн-свиданий.</li>
+      <li><b>О ролях.</b> Распределение ролей внутри команды — кто пойдёт первым, кто прикрывает, кому, образно выражаясь, доверить снайперскую винтовку — будет произведено в атмосфере полнейшей взаимной учтивости, без нажима, без споров и, главное, без упрёков в чей бы то ни было адрес.</li>
+      <li><b>О настроении.</b> Каждый из участников обязуется пребывать в расположении духа благодушном; всякие выражения досады, вызванные неудачными раундами, признаются, по обоюдному согласию, досадой временною, преходящею и никоим образом не направленною на личность товарища по команде.</li>
+      <li><b>О продолжительности.</b> Продолжительность игрового сеанса не ограничивается заранее никакими рамками, ибо, как справедливо замечено было мудрыми людьми, хорошей игры, подобно хорошей беседе, много не бывает; вместе с тем, каждая из сторон сохраняет за собой неотъемлемое право откланяться в любую минуту, сославшись на сон, на завтрашний день или на иные столь же почтенные основания.</li>
+      <li><b>О чае и закусках.</b> Приглашающая сторона, к глубочайшему своему сожалению, не имеет технической возможности угостить Вас через экран, а посему забота о чае, кофе и сопутствующих снедях возлагается, с соболезнованиями и наилучшими пожеланиями, на Вас самих.</li>
+    </ol>
+  </div>
+</section>
 
-      <h4>Сценарий Если „знакомый“ просит срочно перевести деньги </h4>
-      <div class="card">
-        <ul>
-          <li>Усомнись: это может быть дипфейк/взлом.</li>
-          <li>Перепроверь через звонок/видеозвонок по известному номеру.</li>
-          <li>Не переводи деньги, пока не подтвердишь личность.</li>
-        </ul>
-      </div>
+<section class="band band-orange">
+  <div class="wrap reveal">
+    <span class="sec-label light">Часть пятая · Заключительные уверения</span>
+    <h2 class="sec-title" style="color:var(--cream);-webkit-text-stroke:2px var(--ink);text-shadow:5px 5px 0 var(--ink);">Послесловие, столь же обстоятельное</h2>
+    <div class="epistle">
+      <p>В заключение, — и заключение это, как Вы уже имели возможность убедиться, под стать всему предшествующему тексту, — позвольте ещё раз, в который уже по счёту, но отнюдь не в ущерб искренности, заверить Вас в том, что предложение моё продиктовано единственно желанием провести время в Вашем, пусть и виртуальном, обществе, и ничем иным; что никаких скрытых намерений, корыстных побуждений или, упаси боже, желания пополнить команду первым попавшимся участником за ним не стоит; и что отказ Ваш, буде он последует, будет встречен мною если не с радостью, — ибо лукавить не стану, — то, во всяком случае, с полным пониманием и без малейшей тени обиды.</p>
+      <p>Вместе с тем, дорогой друг, уважаемый многими людьми, не могу не выразить надежду, — надежду робкую, но упорную, — что, дочитав настоящее послание до сих самых строк, а следовательно, пройдя, так сказать, весь путь от преамбулы до послесловия, ты не сможешь ответить иначе, как согласием: ибо человек, одолевший такое количество вводных слов, заслужил, по всем мыслимым меркам, награду, а наградою пусть послужит совместная, интереснейшая и, не побоюсь этого слова, славная игра в Контр-Страйк 2.</p>
+      <p>Итак, подводя итог всему вышеизложенному, резюмируя сказанное и, образно выражаясь, собирая воедино все нити сего пространного обращения, повторяю свой вопрос в третий и последний раз, с тем, однако же, уточнением, что слово «последний» здесь означает лишь последний раз на этой странице, а не последний раз вообще, — итак: <strong>не соизволишь ли ты сыграть со мной в КС2?</strong></p>
+      <span class="flourish">Твоего ответа жду с нетерпением, коему нет предела.</span>
+    </div>
+  </div>
+</section>
 
-      <h3>1.3 Фейки и дипфейки</h3>
-      <div class="card">
-        <p><strong>Дипфейки</strong> — видео/аудио/изображения, созданные ИИ, где происходит то, чего не было в реальности.</p>
-        <p><strong>Как распознать:</strong> неестественная мимика/голос, рассинхрон звука и губ, странные тени/артефакты, слишком эмоциональный призыв к действию.</p>
-        <p><strong>Правило:</strong> любую нестандартную просьбу (перевод, код из СМС, фото документа) перепроверяй через альтернативный канал.</p>
-      </div>
+<section class="band band-ink cta-zone">
+  <div class="wrap reveal">
+    <span class="sec-label" style="background:var(--yellow);color:var(--ink);">Часть последняя · Ваш ответ</span>
+    <h2 class="sec-title" style="color:var(--cream);">Соизволите ли Вы?</h2>
+    <a class="blob-btn" href="#" onclick="accept(event)">Принимаю с благодарностью</a>
+    <p class="cta-note" id="ctaNote">(нажатие на кнопку равносильно подписанию настоящего приглашения в двух экземплярах)</p>
+    <span class="signature">С глубочайшим почтением, приглашающая сторона</span>
+    <p class="fineprint">Приложения к настоящему приглашению: 1) вышеуказанный текст; 2) вышеуказанный текст, прочитанный повторно; 3) молчаливое предположение о Вашем согласии, вступающее в силу через пять минут после прочтения. Настоящее приглашение составлено в единственном экземпляре, набрано пестрыми буквами и не нуждается в нотариальном заверении, ибо заверено искренностью.</p>
+  </div>
+</section>
 
-      <h3>1.4 Если аккаунт взломали: план действий</h3>
-      <div class="card">
-        <ol>
-          <li>Смени пароль и выйди из аккаунта на всех устройствах.</li>
-          <li>Включи 2FA(Двухфакторная аутентификация).</li>
-          <li>Проверь резервные контакты и правила пересылки почты.</li>
-          <li>Предупреди друзей/одноклассников о возможном взломе.</li>
-          <li>Сохрани скриншоты переписки, ссылок, никнеймов для обращения в поддержку/полицию.</li>
-        </ol>
-      </div>
-    </section>
+<footer>
+  Приглашение № 001 · Составлено с соблюдением всех норм этикета · Контр-Страйк 2 ждёт
+</footer>
 
-    <section id="module2">
-      <h2>Модуль 2. Цифровой этикет: уважение, границы, репутация</h2>
+<script>
+// Split hero title into letters for bounce-on-hover
+(function(){
+  var h = document.getElementById('heroTitle');
+  var text = h.textContent;
+  h.textContent = '';
+  text.split('').forEach(function(c){
+    var s = document.createElement('span');
+    s.className = 'ch';
+    s.innerHTML = c === ' ' ? '&nbsp;' : c;
+    h.appendChild(s);
+  });
+})();
 
-      <h3>2.1 Уважительное общение в сети</h3>
-      <div class="card">
-        <ul>
-          <li>Пиши так, как хотел(а) бы получить: без оскорблений, угроз, унижений.</li>
-          <li>Избегай капса (воспринимается как крик) и пассивной агрессии.</li>
-          <li>Перед отправкой перечитай: не задевает ли сообщение чьи‑то чувства?</li>
-        </ul>
-      </div>
+// Scroll reveal
+var io = new IntersectionObserver(function(entries){
+  entries.forEach(function(e){
+    if(e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target); }
+  });
+},{threshold:.12});
+document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
 
-      <h3>2.2 Кибербуллинг: не участвовать и правильно реагировать</h3>
-      <div class="card">
-        <p><strong>Не становись агрессором:</strong> не распространяй слухи, не ставь лайки под унизительными постами, не пересылай приватные скриншоты без согласия.</p>
-        <p><strong>Если ты жертва:</strong> сохрани доказательства; ограничь контакт (блокировка); расскажи взрослому/куратору; при угрозах — в полицию.</p>
-        <p><strong>Если ты свидетель:</strong> поддержи жертву, не подливай масла, сообщи модераторам/взрослому.</p>
-      </div>
-
-      <h3>2.3 Личные границы и приватность других</h3>
-      <div class="card">
-        <ul>
-          <li>Не публикуй фото/видео других людей без их согласия.</li>
-          <li>Не выкладывай чужие переписки, адреса, телефоны.</li>
-          <li>Уважай: если человек просит не отмечать его/не упоминать — выполни просьбу.</li>
-        </ul>
-      </div>
-
-      <h3>2.4 Авторские права и репутация</h3>
-      <div class="card">
-        <ul>
-          <li>Указывай автора, если используешь чужой контент (фото, музыка, текст).</li>
-          <li>Не выдавай чужое за своё (плагиат).</li>
-          <li>Помни: публикации и комментарии остаются в сети надолго и могут повлиять на репутацию.</li>
-        </ul>
-      </div>
-
-      <h4>Чек-лист перед публикацией </h4>
-      <div class="card checklist">
-        <label><input type="checkbox"> Я проверил(а), что контент не нарушает права других</label>
-        <label><input type="checkbox"> Я получил(а) согласие людей на фото/видео</label>
-        <label><input type="checkbox"> Я не раскрываю чужие личные данные</label>
-        <label><input type="checkbox"> Тон сообщения уважительный, без намёков на травлю</label>
-        <label><input type="checkbox"> Я готов(а), что это останется в сети надолго</label>
-      </div>
-    </section>
-
-    <section id="quiz">
-      <h2>Мини-квест "Проверь себя"</h2>
-      <p>Ответь на три вопроса. После каждого ответа ты увидишь, правильно ли ты выбрал(а).</p>
-
-      <div class="card quiz-question" data-correct="b">
-        <p><strong>Сценарий 1.</strong> Тебе пришло сообщение: Срочно! Твой аккаунт взломают, введи код из СМС на сайте…". Что сделаешь?</p>
-        <div class="quiz-options">
-          <label><input type="radio" name="q1" value="a"> Введу код, чтобы защитить аккаунт.</label>
-          <label><input type="radio" name="q1" value="b"> Не вводить код; проверить сайт вручную; сообщить в поддержку.</label>
-          <label><input type="radio" name="q1" value="c"> Перешлю сообщение друзьям, чтобы они тоже ввели код.</label>
-        </div>
-        <div class="feedback"></div>
-      </div>
-
-      <div class="card quiz-question" data-correct="b">
-        <p><strong>Сценарий 2.</strong> В чате класса кто-то выложил смешное, но унизительное фото одноклассника. Твои действия?</p>
-        <div class="quiz-options">
-          <label><input type="radio" name="q2" value="a"> Поставлю лайк и отправлю друзьям.</label>
-          <label><input type="radio" name="q2" value="b"> Не лайкать/не пересылать; поддержать жертву; сообщить модератору/взрослому.</label>
-          <label><input type="radio" name="q2" value="c"> Напишу обидный комментарий автору фото.</label>
-        </div>
-        <div class="feedback"></div>
-      </div>
-
-      <div class="card quiz-question" data-correct="a">
-        <p><strong>Сценарий 3.</strong> Друг в видеозвонке просит срочно перевести деньги. Как проверишь?</p>
-        <div class="quiz-options">
-          <label><input type="radio" name="q3" value="a"> Позвонить по известному номеру; не переводить до подтверждения.</label>
-          <label><input type="radio" name="q3" value="b"> Сразу переведу, чтобы помочь.</label>
-          <label><input type="radio" name="q3" value="c"> Попрошу его прислать фото паспорта.</label>
-        </div>
-        <div class="feedback"></div>
-      </div>
-
-      <button class="btn" id="checkQuiz">Проверить ответы</button>
-    </section>
-
-    <section id="memory">
-      <h2>Памятка для телефона</h2>
-      <div class="card">
-        <h3>Что делать, если…</h3>
-        <ul>
-          <li><strong>Пришло подозрительное сообщение со ссылкой:</strong> не нажимай; открой сайт вручную; проверь домен; при просьбе пароля/денег — перепроверь через звонок.</li>
-          <li><strong>Взломали аккаунт:</strong> смени пароль; выйди со всех устройств; включи 2FA; предупреди друзей; сохрани скриншоты для поддержки/полиции.</li>
-          <li><strong>Травят в сети (кибербуллинг):</strong> сохрани доказательства; ограничь контакт (блокировка); расскажи взрослому/куратору; при угрозах — в полицию.</li>
-          <li><strong>Прислали видео от знакомого с просьбой денег:</strong> усомнись (дипфейк); позвони по известному номеру; не переводи деньги до подтверждения.</li>
-        </ul>
-      </div>
-    </section>
-  </main>
-
-  <footer>
-    <p>Продукт создан для курса "Передай дальше". Используй материалы для просвещения сверстников.</p>
-  </footer>
-
-  <script>
-    document.getElementById('checkQuiz').addEventListener('click', () => {
-      const questions = document.querySelectorAll('.quiz-question');
-      questions.forEach(q => {
-        const correct = q.dataset.correct;
-        const selected = q.querySelector('input[type="radio"]:checked');
-        const feedback = q.querySelector('.feedback');
-        if (!selected) {
-          feedback.className = 'feedback';
-          feedback.textContent = 'Выбери вариант ответа.';
-          return;
-        }
-        if (selected.value === correct) {
-          feedback.className = 'feedback correct';
-          feedback.textContent = 'Верно!';
-        } else {
-          feedback.className = 'feedback incorrect';
-          feedback.textContent = 'Не совсем. Подумай ещё раз.';
-        }
-      });
-    });
-  </script>
+// CTA
+function accept(ev){
+  ev.preventDefault();
+  var btn = document.querySelector('.blob-btn');
+  var note = document.getElementById('ctaNote');
+  btn.textContent = 'Согласие зафиксировано!';
+  btn.style.background = 'var(--teal)';
+  btn.style.color = 'var(--cream)';
+  note.textContent = '(договор считается заключённым; стороны приступают к исполнению немедленно, то есть залетай)';
+}
+</script>
 </body>
 </html>
